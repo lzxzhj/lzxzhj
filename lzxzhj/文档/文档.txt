@@ -1,1 +1,1 @@
-https://github.com/lzxzhj/lzxzhj.git
+GitAddr: https://github.com/lzxzhj/lzxzhj.git
