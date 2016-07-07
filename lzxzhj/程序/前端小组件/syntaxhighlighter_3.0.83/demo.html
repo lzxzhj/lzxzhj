@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<head>
+	<meta charset="UTF-8"/>
+	
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="scripts/shBrushJava.js"></script>
+	<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+	
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+
+<body>
+	<h2>JavaScript</h2>
+	<pre class="brush: js;">
+	function getUUID() {
+		try{
+			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+				var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+				return v.toString(16);
+			});
+		}catch(oE){
+			Exception.throwError("StringUtil.getUUID", oE);
+		}
+	}
+	</pre>
+	
+	
+	
+	<h2>JAVA</h2>
+	<pre class="brush: java;">
+	private static SessionUtilInterface getSessionUtil() {
+		if (DeployPluginNames.isDeployAsFe()) {
+			return new FeSessionUtil();
+		}else {
+			return new BeSessionUtil();
+		}
+	}
+	</pre>
+</html>
