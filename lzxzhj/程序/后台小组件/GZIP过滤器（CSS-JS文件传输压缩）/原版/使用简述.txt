@@ -1,0 +1,94 @@
+web项目中使用过滤器进行文件压缩和缓存（tk-filters）
+ 
+1、下载tk-filters的压缩包（见附件）
+ 
+2、解压、修改tk-filters.properties文件（解压后在tk-filters\conf目录）
+      主要修改项如下：
+GZIPFilter.Enabled=false(默认为false,true打开GZIP压缩功能)
+GZIPFilter.LogStats=false(默认为false,true打开GZIP压缩功能日志,可以在后台看到压缩比例信息)
+CacheFilter.Enabled=false(默认为false,true打开GZIP缓存功能)
+ 
+3、将修改的tk-filters.properties文件拷贝至WEB项目的WEB-INF\classes目录下
+ 
+4、拷贝web.xml中的内容（也就是过滤器的配置），将内容粘贴到WEB项目的web.xml文件中，并对相关的需要压缩的文件进行修改调整
+<!-- 
+
+  This is an example snippet for adding the filters in 
+  this distribution to your server.
+
+  It should be placed after any context-params, but before
+  any listener or servlet definitions.
+  
+-->
+
+  <!-- ClusterCheck Definition-->
+  <filter>
+    <filter-name>ClusterCheck</filter-name>
+    <display-name>ClusterCheck</display-name>
+    <description>Examines session usage for non-clusterable usage patterns</description>
+    <filter-class>com.tacitknowledge.filters.clustercheck.ClusterCheckFilter</filter-class>
+  </filter>
+  
+  <!-- GZIPFilter Definition -->
+  <filter>
+    <filter-name>GZIPFilter</filter-name>
+    <display-name>GZIPFilter</display-name>
+    <description>Transparently compresses server output using Gzip encoding, when possible</description>
+    <filter-class>com.tacitknowledge.filters.gzipfilter.GZIPFilter</filter-class>
+  </filter>
+
+  <!-- CacheFilter Definition -->
+  <filter>
+    <filter-name>CacheFilter</filter-name>
+    <display-name>CacheFilter</display-name>
+    <description>Sends Expires HTTP headers to reduce unnecessary network traffic</description>
+    <filter-class>com.tacitknowledge.filters.cache.CacheHeaderFilter</filter-class>
+  </filter>
+
+
+  <!-- ClusterCheck Mappings - Alter to fit your circumstances -->
+  <filter-mapping>
+    <filter-name>ClusterCheck</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ClusterCheck</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+  <!-- GZIPFilter Mappings  - Alter to fit your circumstances -->  
+  <filter-mapping>
+    <filter-name>GZIPFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>GZIPFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+  <!-- CacheFilter Mappings  - Alter to fit your circumstances -->
+  <filter-mapping>
+    <filter-name>CacheFilter</filter-name>
+    <url-pattern>*.gif</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CacheFilter</filter-name>
+    <url-pattern>*.jpg</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CacheFilter</filter-name>
+    <url-pattern>*.png</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CacheFilter</filter-name>
+    <url-pattern>*.js</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CacheFilter</filter-name>
+    <url-pattern>*.css</url-pattern>
+  </filter-mapping>
+ 
+5、将jar包（tk-filters.jar）拷贝至WEB-INF/lib目录中去
+ 
+6、配置完成，重启试试看吧！
+ 
